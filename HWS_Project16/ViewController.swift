@@ -13,7 +13,18 @@ class ViewController: UIViewController {
     @IBOutlet var mapView: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        let london = Capital(coordinate: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), title: "London", info: "Home to the 2012 Summer Olympics.")
+        let oslo = Capital(coordinate: CLLocationCoordinate2D(latitude: 59.95, longitude: 10.75), title: "London", info: "Home to the 2012 Summer Olympics.")
+        let paris = Capital(coordinate: CLLocationCoordinate2D(latitude: 48.8567, longitude: 2.3508), title: "London", info: "Home to the 2012 Summer Olympics.")
+        let rome = Capital(coordinate: CLLocationCoordinate2D(latitude: 41.9, longitude: 12.5), title: "London", info: "Home to the 2012 Summer Olympics.")
+        let washington = Capital(coordinate: CLLocationCoordinate2D(latitude: 38.895111, longitude: -77.036667), title: "London", info: "Home to the 2012 Summer Olympics.")
+        
+        //ピンをマップ上に追加
+        mapView.addAnnotations([london, oslo, paris, rome, washington])
+
+
+        
     }
 
 
