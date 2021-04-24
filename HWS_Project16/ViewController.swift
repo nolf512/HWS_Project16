@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet var mapView: MKMapView!
     override func viewDidLoad() {
@@ -23,10 +23,39 @@ class ViewController: UIViewController {
         //ピンをマップ上に追加
         mapView.addAnnotations([london, oslo, paris, rome, washington])
 
-
-        
     }
 
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        guard annotation is Capital else { return nil }
+        
+        let identifier = "Capital"
+        
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        
+        if annotationView == nil {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+            
+            let btn = UIButton(type: .detailDisclosure)
+            annotationView?.rightCalloutAccessoryView = btn
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        return annotationView
+    }
 
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let capital = view.annotation as? Capital else { return }
+        let placeNamw = capital.title
+        let placeInfo = capital.info
+        
+        let ac = UIAlertController(title: placeNamw, message: placeInfo, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(ac, animated: true, completion: nil)
+    }
+    
+    
 }
 
